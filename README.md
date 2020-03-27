@@ -1,6 +1,8 @@
 Securing DevOps's invoicer 
 ==========================
-Note: This is Daghan's working copy and most likely busted
+Note: 
+This is Daghan's working copy and most likely busted
+
 
 A simple REST API that manages invoices.
 
