@@ -1,0 +1,22 @@
+{
+    "EnvironmentName": "daghanaltasivcr202003291657-invoicer-api",
+    "EnvironmentId": "e-bbinxjmkmj",
+    "ApplicationName": "daghanaltasivcr202003291657",
+    "VersionLabel": "invoicer-api",
+    "SolutionStackName": "64bit Amazon Linux 2018.03 v2.14.3 running Docker 18.09.9-ce",
+    "PlatformArn": "arn:aws:elasticbeanstalk:us-west-2::platform/Docker running on 64bit Amazon Linux/2.14.3",
+    "Description": "Invoicer API environment",
+    "EndpointURL": "awseb-e-b-AWSEBLoa-SSWHZK6MIHWF-1774262485.us-west-2.elb.amazonaws.com",
+    "CNAME": "daghanaltasivcr202003291657-invoicer-api.eba-5vnf5m2h.us-west-2.elasticbeanstalk.com",
+    "DateCreated": "2020-03-30T00:01:01.937000+00:00",
+    "DateUpdated": "2020-03-30T00:04:10.612000+00:00",
+    "Status": "Updating",
+    "AbortableOperationInProgress": true,
+    "Health": "Grey",
+    "Tier": {
+        "Name": "WebServer",
+        "Type": "Standard",
+        "Version": "1.0"
+    },
+    "EnvironmentArn": "arn:aws:elasticbeanstalk:us-west-2:343028063597:environment/daghanaltasivcr202003291657/daghanaltasivcr202003291657-invoicer-api"
+}

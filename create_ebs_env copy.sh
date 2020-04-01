@@ -14,7 +14,6 @@ export AWS_DEFAULT_REGION=${AWS_REGION:-us-west-2}
 
 datetag=$(date +%Y%m%d%H%M)
 identifier=$(whoami)ivcr$datetag
-#identifier='daghanaltasivcr202003291351'
 mkdir -p tmp/$identifier
 
 echo "Creating EBS application $identifier"
@@ -36,7 +35,6 @@ echo "DB security group is $dbsg"
 dbinstclass="db.t2.micro"
 dbstorage=5
 dbpass=$(dd if=/dev/urandom bs=128 count=1 2>/dev/null| LC_CTYPE=C tr -dc _A-Z-a-z-0-9)
-#dbpass='oh3WKyTZu-YX6yZjnT-TzgTxb4fPpwXY-Ae'
 aws rds create-db-instance \
     --db-name invoicer \
     --db-instance-identifier "$identifier" \
@@ -63,7 +61,7 @@ do
 done
 echo "dbhost=$dbhost"
 
-tagging rds instance
+# tagging rds instance
 aws rds add-tags-to-resource \
     --resource-name $(jq -r '.DBInstances[0].DBInstanceArn' tmp/$identifier/rds.json) \
     --tags "Key=environment-name,Value=invoicer-api"
@@ -71,7 +69,7 @@ aws rds add-tags-to-resource \
     --resource-name $(jq -r '.DBInstances[0].DBInstanceArn' tmp/$identifier/rds.json) \
     --tags "Key=Owner,Value=$(whoami)"
 
-Create an elasticbeantalk application
+# Create an elasticbeantalk application
 aws elasticbeanstalk create-application \
     --application-name $identifier \
     --description "Invoicer $env $datetag" > tmp/$identifier/ebcreateapp.json || fail
@@ -79,14 +77,11 @@ echo "ElasticBeanTalk application created"
 
 # Get the name of the latest Docker solution stack
 dockerstack="$(aws elasticbeanstalk list-available-solution-stacks | \
-    jq -r '.SolutionStacks[]' | egrep '.+Amazon Linux.+running Docker.+' | head -1)"
-echo "dockerstack=$dockerstack"
+    jq -r '.SolutionStacks[]' | grep -P '.+Amazon Linux.+running Docker.+' | head -1)"
 
 # Create the EB API environment
-echo "replacing dbpass"
 sed "s/POSTGRESPASSREPLACEME/$dbpass/" ebs-options.json > tmp/$identifier/ebs-options.json || fail
-echo "replacing dbhost in place"
-sed -i ".bak" "s/POSTGRESHOSTREPLACEME/$dbhost/" tmp/$identifier/ebs-options.json || fail
+sed -i "s/POSTGRESHOSTREPLACEME/$dbhost/" tmp/$identifier/ebs-options.json || fail
 aws elasticbeanstalk create-environment \
     --application-name $identifier \
     --environment-name $identifier-invoicer-api \
@@ -97,8 +92,6 @@ aws elasticbeanstalk create-environment \
     --tier "Name=WebServer,Type=Standard,Version=''" > tmp/$identifier/ebcreateapienv.json || fail
 apieid=$(jq -r '.EnvironmentId' tmp/$identifier/ebcreateapienv.json)
 echo "API environment $apieid is being created"
-
-
 
 # grab the instance ID of the API environment, then its security group, and add that to the RDS security group
 while true;

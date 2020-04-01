@@ -1,15 +1,12 @@
 {
   "AWSEBDockerrunVersion": "1",
   "Image": {
-    "Name": "docker.io/securingdevops/invoicer",
+    "Name": "docker.io/daghan/invoicer-chapter2",
     "Update": "true"
   },
-  "Ports": [
-    {
-      "ContainerPort": "8080"
-    }
-  ],
-  "Volumes": [
-  ],
+  "Ports": [{
+    "ContainerPort": "8080"
+  }],
+  "Volumes": [],
   "Logging": "/var/log/nginx"
 }

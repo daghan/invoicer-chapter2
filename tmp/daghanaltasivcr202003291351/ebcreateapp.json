@@ -1,0 +1,24 @@
+{
+    "Application": {
+        "ApplicationArn": "arn:aws:elasticbeanstalk:us-west-2:343028063597:application/daghanaltasivcr202003291351",
+        "ApplicationName": "daghanaltasivcr202003291351",
+        "Description": "Invoicer  202003291351",
+        "DateCreated": "2020-03-29T20:55:10.258000+00:00",
+        "DateUpdated": "2020-03-29T20:55:10.258000+00:00",
+        "ConfigurationTemplates": [],
+        "ResourceLifecycleConfig": {
+            "VersionLifecycleConfig": {
+                "MaxCountRule": {
+                    "Enabled": false,
+                    "MaxCount": 200,
+                    "DeleteSourceFromS3": false
+                },
+                "MaxAgeRule": {
+                    "Enabled": false,
+                    "MaxAgeInDays": 180,
+                    "DeleteSourceFromS3": false
+                }
+            }
+        }
+    }
+}
