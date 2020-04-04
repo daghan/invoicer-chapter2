@@ -56,7 +56,9 @@ func main() {
 		db, err = gorm.Open("sqlite3", "invoicer.db")
 	}
 	if err != nil {
+		log.Println(err)
 		panic("failed to connect database")
+
 	}
 
 	iv.db = db
