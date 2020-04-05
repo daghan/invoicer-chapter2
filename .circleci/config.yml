@@ -6,6 +6,8 @@ jobs:
     working_directory: /go/src/github.com/daghan/invoicer-chapter2
     docker:
       - image: circleci/golang:1.10
+    environment:
+      GO15VENDOREXPERIMENT: 1
       steps:
         - checkout
         - setup_remote_docker
@@ -34,13 +36,13 @@ jobs:
               go test \
               github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}
 
-              - run:
-          name: Build application container
-          command: |
-            go install --ldflags '-extldflags "-static"' github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME};
-            [ ! -e bin ] && mkdir bin;
-            cp "${GOPATH_HEAD}/bin/${CIRCLE_PROJECT_REPONAME}" bin/invoicer;
-            docker build -t ${DOCKER_REPO}/${CIRCLE_PROJECT_REPONAME} .;
+        - run:
+            name: Build application container
+            command: |
+              go install --ldflags '-extldflags "-static"' github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME};
+              [ ! -e bin ] && mkdir bin;
+              cp "${GOPATH_HEAD}/bin/${CIRCLE_PROJECT_REPONAME}" bin/invoicer;
+              docker build -t ${DOCKER_REPO}/${CIRCLE_PROJECT_REPONAME} .;
 
         - run:
             name: Run application in background
