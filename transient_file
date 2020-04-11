@@ -6,7 +6,8 @@ docker run -it \
     -e INVOICER_POSTGRES_DB="invoicer" \
     -e INVOICER_POSTGRES_SSLMODE="disable" \
     -p 8080:8080 daghan/invoicer-chapter2:latest  
-    
+
+    #triggering a CI run
 
 
     pg_ctl -D /usr/local/var/postgres -l /var/log/postgres.log start ; tail -f /var/log/postgres.log&
