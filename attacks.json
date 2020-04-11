@@ -1,0 +1,10 @@
+{
+    "is_paid": false,
+    "amout": 51,
+    "due_date": "2020-04-05T23:00:00Z",
+    "charges": [{
+        "type": "physical checkup",
+        "amount": 51,
+        "description": "<script type='text/javascript'>alert('xss');</script>"
+    }]
+}
