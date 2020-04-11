@@ -81,7 +81,7 @@ jobs:
                     -u https://raw.githubusercontent.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}/master/zap-baseline.conf \
                     -t http://172.17.0.2:8080/ || \
                 exit 0;
-              fi
+              fi;
             )
 
       - run:
