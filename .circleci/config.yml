@@ -13,12 +13,8 @@ jobs:
       - run:
           name: Setup environment
           command: |
-            gb="/src/github.com/${CIRCLE_PROJECT_USERNAME}";
-            if [ ${CIRCLE_PROJECT_USERNAME} == 'Securing-DevOps' ]; then
-              dr="securingdevops"
-            else
-              dr=$DOCKER_USER
-            fi
+            gb="/src/github.com/daghan";
+            dr=$DOCKER_USER
             cat >> $BASH_ENV << EOF
             export GOPATH_HEAD="$(echo ${GOPATH}|cut -d ':' -f 1)"
             export GOPATH_BASE="$(echo ${GOPATH}|cut -d ':' -f 1)${gb}"
@@ -56,7 +52,7 @@ jobs:
               echo ${DOCKER_USER}/${CIRCLE_PROJECT_REPONAME}:${CIRCLE_TAG};
               go install --ldflags '-extldflags "-static"' \
               github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME};
-              mkdir bin;
+              
               cp "$GOPATH_HEAD/bin/${CIRCLE_PROJECT_REPONAME}" bin/invoicer;
               docker build -t ${DOCKER_REPO}/${CIRCLE_PROJECT_REPONAME} .;
               docker images --no-trunc | awk '/^app/ {print $3}' | \
