@@ -1,2 +1,19 @@
-This is a tmp file to troubleshooting issues
-Deleted Cirrus CI
+docker run -it \
+    -e INVOICER_USE_POSTGRES="yes" \
+    -e INVOICER_POSTGRES_USER="invoicer" \
+    -e INVOICER_POSTGRES_PASSWORD="invoicer" \
+    -e INVOICER_POSTGRES_HOST="192.168.130.40" \
+    -e INVOICER_POSTGRES_DB="invoicer" \
+    -e INVOICER_POSTGRES_SSLMODE="disable" \
+    -p 8080:8080 daghan/invoicer-chapter2:latest  
+
+    #triggering a CI run
+
+
+    pg_ctl -D /usr/local/var/postgres -l /var/log/postgres.log start ; tail -f /var/log/postgres.log&
+
+     curl -X POST -d @attacks.json http://localhost:8080/invoice`
+
+     mkdir bin
+$ go build --ldflags '-extldflags "-static"' -o bin/invoicer .
+
