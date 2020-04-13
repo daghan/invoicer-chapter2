@@ -31,7 +31,7 @@ function getInvoice(invoiceid, CSRFToken) {
   $.ajax({
     url: "/invoice/" + invoiceid,
     beforeSend: function (request) {
-      request.setRequestHeader("X-CSRF-Token", $("#CSRFToken").val());
+      request.setRequestHeader("X-CSRF-Token", CSRFToken);
     },
     error: function (xhr, ajaxOptions, thrownError) {
       if (xhr.status == 404) {
