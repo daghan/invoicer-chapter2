@@ -224,8 +224,7 @@ func (iv *invoicer) deleteInvoice(w http.ResponseWriter, r *http.Request) {
 
 func (iv *invoicer) getIndex(w http.ResponseWriter, r *http.Request) {
 	log.Println("serving index page")
-	w.Header().Add("Content-Security-Policy",
-		"default-src 'self'; child-src 'self';")
+	w.Header().Add("Content-Security-Policy", "default-src 'self';")
 	w.Header().Add("X-FRAME-Options", "SAMEORIGIN")
 	w.Header().Add("X-Content-Type-Options", "nosniff")
 	w.Write([]byte(`
