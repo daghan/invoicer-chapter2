@@ -222,6 +222,7 @@ func (iv *invoicer) getIndex(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("Content-Security-Policy",
 		"default-src 'self'; child-src 'self';")
 	w.Header().Add("X-FRAME-Options", "SAMEORIGIN")
+	w.Header().Set("X-Content-Type-Options", "nosniff")
 	w.Write([]byte(`
 		<!DOCTYPE html>
 		<html>
