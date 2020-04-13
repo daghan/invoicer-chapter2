@@ -137,7 +137,6 @@ func (iv *invoicer) getInvoice(w http.ResponseWriter, r *http.Request) {
 	}
 	w.Header().Add("Content-Type", "application/json")
 	w.Header().Add("Access-Control-Allow-Origin", "*")
-	w.Header().Add("X-Content-Type-Options", "nosniff")
 	w.WriteHeader(http.StatusOK)
 	w.Write(jsonInvoice)
 	al := appLog{Message: fmt.Sprintf("retrieved invoice %d", i1.ID), Action: "get-invoice"}
@@ -166,7 +165,6 @@ func (iv *invoicer) postInvoice(w http.ResponseWriter, r *http.Request) {
 	iv.db.Create(&i1)
 	iv.db.Last(&i1)
 	w.WriteHeader(http.StatusCreated)
-	w.Header().Add("X-Content-Type-Options", "nosniff")
 	w.Write([]byte(fmt.Sprintf("created invoice %d", i1.ID)))
 	al := appLog{Message: fmt.Sprintf("created invoice %d", i1.ID), Action: "post-invoice"}
 	al.log(r)
@@ -195,7 +193,6 @@ func (iv *invoicer) putInvoice(w http.ResponseWriter, r *http.Request) {
 	iv.db.First(&i1, vars["id"])
 	log.Printf("%+v\n", i1)
 	w.WriteHeader(http.StatusAccepted)
-	w.Header().Add("X-Content-Type-Options", "nosniff")
 	w.Write([]byte(fmt.Sprintf("updated invoice %d", i1.ID)))
 	al := appLog{Message: fmt.Sprintf("updated invoice %d", i1.ID), Action: "put-invoice"}
 	al.log(r)
@@ -204,7 +201,6 @@ func (iv *invoicer) putInvoice(w http.ResponseWriter, r *http.Request) {
 func (iv *invoicer) deleteInvoice(w http.ResponseWriter, r *http.Request) {
 	if !checkCSRFToken(r.Header.Get("X-CSRF-Token")) {
 		w.WriteHeader(http.StatusNotAcceptable)
-		w.Header().Add("X-Content-Type-Options", "nosniff")
 		w.Write([]byte("Invalid CSRF Token"))
 		return
 	}
@@ -216,7 +212,6 @@ func (iv *invoicer) deleteInvoice(w http.ResponseWriter, r *http.Request) {
 	i1.ID = uint(id)
 	iv.db.Delete(&i1)
 	w.WriteHeader(http.StatusAccepted)
-	w.Header().Add("X-Content-Type-Options", "nosniff")
 	w.Write([]byte(fmt.Sprintf("deleted invoice %d", i1.ID)))
 	al := appLog{Message: fmt.Sprintf("deleted invoice %d", i1.ID), Action: "delete-invoice"}
 	al.log(r)
@@ -224,9 +219,6 @@ func (iv *invoicer) deleteInvoice(w http.ResponseWriter, r *http.Request) {
 
 func (iv *invoicer) getIndex(w http.ResponseWriter, r *http.Request) {
 	log.Println("serving index page")
-	w.Header().Add("Content-Security-Policy", "default-src 'self';")
-	w.Header().Add("X-FRAME-Options", "SAMEORIGIN")
-	//w.Header().Add("X-Content-Type-Options", "nosniff")
 	w.Write([]byte(`
 		<!DOCTYPE html>
 		<html>
